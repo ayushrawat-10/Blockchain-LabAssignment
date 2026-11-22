@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decentralized Voting System | Sepolia Testnet</title>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Glow Accents -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+            <line x1="6" y1="1" x2="6" y2="4"></line>
+            <line x1="10" y1="1" x2="10" y2="4"></line>
+            <line x1="14" y1="1" x2="14" y2="4"></line>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">VoteChain</span>
+          <span class="brand-badge">Sepolia Testnet</span>
+        </div>
+      </div>
+
+      <!-- Wallet Controls -->
+      <div class="header-actions">
+        <!-- Network Badge -->
+        <div id="networkPill" class="network-pill network-unknown">
+          <span class="status-dot"></span>
+          <span id="networkName">Checking Network...</span>
+        </div>
+
+        <!-- Switch Network Button (Shown if wrong network) -->
+        <button id="switchNetworkBtn" class="btn btn-warning btn-sm hidden" title="Switch your wallet to Sepolia">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          Switch to Sepolia
+        </button>
+
+        <!-- Connect Wallet Button / Connected Pill -->
+        <div id="walletContainer">
+          <button id="connectWalletBtn" class="btn btn-primary">
+            <svg class="metamask-fox" width="20" height="20" viewBox="0 0 32 32" fill="none">
+              <path d="M29.07 3.52L17.7 11.83l2.12-5.02L29.07 3.52z" fill="#E2761B" stroke="#E2761B" stroke-width=".5"/>
+              <path d="M2.93 3.52l11.26 8.35-2.01-5.06L2.93 3.52z" fill="#E4751F" stroke="#E4751F" stroke-width=".5"/>
+              <path d="M24.78 22.38l-3.03 4.63 6.54 1.8 1.88-6.32-5.39-.11z" fill="#E4751F" stroke="#E4751F" stroke-width=".5"/>
+              <path d="M1.83 22.49l1.88 6.32 6.54-1.8-3.03-4.63-5.39.11z" fill="#E4751F" stroke="#E4751F" stroke-width=".5"/>
+              <path d="M10.02 14.17l-1.8 2.7 6.42.28-.24-6.9-4.38 3.92z" fill="#E4751F" stroke="#E4751F" stroke-width=".5"/>
+              <path d="M21.98 14.17l-4.42-3.96-.2 6.94 6.42-.28-1.8-2.7z" fill="#E4751F" stroke="#E4751F" stroke-width=".5"/>
+              <path d="M10.25 27.01l3.87-1.88-3.34-2.6-2.42 2.05 1.89 2.43z" fill="#E4751F" stroke="#E4751F" stroke-width=".5"/>
+              <path d="M17.88 25.13l3.87 1.88 1.89-2.43-2.42-2.05-3.34 2.6z" fill="#E4751F" stroke="#E4751F" stroke-width=".5"/>
+            </svg>
+            Connect MetaMask
+          </button>
+
+          <!-- Connected Account Details (Hidden by default) -->
+          <div id="accountInfo" class="account-pill hidden">
+            <span class="account-status-dot"></span>
+            <span id="accountAddress" class="account-address" title="Click to copy full address">0x00...0000</span>
+            <button id="copyAddressBtn" class="copy-btn" title="Copy Address">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 14 14"></polyline>
+        </svg>
+        Blockchain Technology Lab
+      </div>
+      <h1 class="hero-title">Decentralized Voting System</h1>
+      <p class="hero-description">
+        A transparent, tamper-proof on-chain election platform deployed on the <strong>Sepolia Ethereum Testnet</strong>.
+        Cast your vote directly through your MetaMask wallet. All votes are permanently registered on the blockchain
+        with cryptographic security, ensuring zero duplicate votes and immutable live tallies.
+      </p>
+
+      <!-- User Voting Status Banner -->
+      <div id="voterStatusCard" class="voter-status-card status-disconnected">
+        <div class="status-icon-wrapper">
+          <svg id="statusIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div class="status-details">
+          <div class="status-title" id="statusTitle">Wallet Not Connected</div>
+          <div class="status-message" id="statusMessage">
+            Please connect your MetaMask wallet using the button above to view your voter eligibility and submit your vote.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results & Statistics Overview -->
+    <section class="stats-section">
+      <div class="section-header-row">
+        <div>
+          <h2 class="section-title">Election Overview</h2>
+          <p class="section-subtitle">Real-time statistics queried directly from the verified smart contract.</p>
+        </div>
+        <button id="refreshBtn" class="btn btn-secondary btn-sm" title="Refresh contract data">
+          <svg class="refresh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span>Refresh Data</span>
+        </button>
+      </div>
+
+      <div class="stats-grid">
+        <!-- Stat 1: Total Candidates -->
+        <div class="stat-card">
+          <div class="stat-icon-box stat-icon-blue">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Total Candidates</span>
+            <span id="statCandidateCount" class="stat-value">3</span>
+          </div>
+        </div>
+
+        <!-- Stat 2: Total Votes Cast -->
+        <div class="stat-card">
+          <div class="stat-icon-box stat-icon-purple">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Total Votes Cast</span>
+            <span id="statTotalVotes" class="stat-value">0</span>
+          </div>
+        </div>
+
+        <!-- Stat 3: Leading Candidate -->
+        <div class="stat-card">
+          <div class="stat-icon-box stat-icon-emerald">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="7"></circle>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Current Leader</span>
+            <span id="statLeader" class="stat-value leader-text">No votes yet</span>
+          </div>
+        </div>
+
+        <!-- Stat 4: Your Status -->
+        <div class="stat-card">
+          <div class="stat-icon-box stat-icon-amber">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Your Wallet Status</span>
+            <span id="statVoterStatusBadge" class="stat-value voter-badge-text">Disconnected</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Candidates Section -->
+    <section class="candidates-section">
+      <div class="section-header">
+        <h2 class="section-title">Official Candidates</h2>
+        <p class="section-subtitle">Select a candidate below and click "Vote" to sign the transaction via MetaMask.</p>
+      </div>
+
+      <!-- Candidate Cards Grid -->
+      <div id="candidatesGrid" class="candidates-grid">
+        <!-- Rendered dynamically via script.js -->
+        <div class="candidate-skeleton">
+          <div class="skeleton-avatar"></div>
+          <div class="skeleton-line skeleton-title"></div>
+          <div class="skeleton-line skeleton-bar"></div>
+          <div class="skeleton-btn"></div>
+        </div>
+        <div class="candidate-skeleton">
+          <div class="skeleton-avatar"></div>
+          <div class="skeleton-line skeleton-title"></div>
+          <div class="skeleton-line skeleton-bar"></div>
+          <div class="skeleton-btn"></div>
+        </div>
+        <div class="candidate-skeleton">
+          <div class="skeleton-avatar"></div>
+          <div class="skeleton-line skeleton-title"></div>
+          <div class="skeleton-line skeleton-bar"></div>
+          <div class="skeleton-btn"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Transaction Tracking Box -->
+    <section id="txTrackerSection" class="tx-tracker-section hidden">
+      <div class="tx-card">
+        <div class="tx-spinner" id="txSpinner"></div>
+        <div class="tx-info">
+          <div class="tx-status-title" id="txStatusTitle">Transaction Pending</div>
+          <p class="tx-status-desc" id="txStatusDesc">Submitting vote to the Sepolia blockchain...</p>
+          <div class="tx-link-row">
+            <span class="tx-label">Tx Hash:</span>
+            <a id="txHashLink" href="#" target="_blank" rel="noopener noreferrer" class="tx-hash-link">
+              <span id="txHashShort">0x...</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Smart Contract Information Card -->
+    <section class="contract-info-section">
+      <div class="contract-info-card">
+        <div class="contract-info-header">
+          <div class="contract-info-title-group">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            <h3>Smart Contract Specification</h3>
+          </div>
+          <span class="verified-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            Verified on Sepolia
+          </span>
+        </div>
+
+        <div class="contract-details-grid">
+          <div class="detail-item">
+            <span class="detail-label">Contract Name</span>
+            <span class="detail-value font-mono">Voting</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Network / Chain ID</span>
+            <span class="detail-value">Sepolia Testnet (11155111)</span>
+          </div>
+          <div class="detail-item full-width">
+            <span class="detail-label">Deployed Contract Address</span>
+            <div class="contract-address-row">
+              <span class="font-mono" id="contractAddressDisplay">0x1aE68E26A44b691200A2743b6bF7706CC1c2039c</span>
+              <a href="https://sepolia.etherscan.io/address/0x1aE68E26A44b691200A2743b6bF7706CC1c2039c" target="_blank" rel="noopener noreferrer" class="etherscan-link" title="View Contract on Sepolia Etherscan">
+                <span>View on Etherscan</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p class="footer-note">
+        Decentralized Voting System &bull; Blockchain Technology Lab Assignment
+      </p>
+      <div class="footer-links">
+        <a href="https://cloud.google.com/application/web3/faucet/ethereum/sepolia" target="_blank" rel="noopener noreferrer">Sepolia Faucet</a>
+        <span>&bull;</span>
+        <a href="https://sepolia.etherscan.io/address/0x1aE68E26A44b691200A2743b6bF7706CC1c2039c" target="_blank" rel="noopener noreferrer">Contract Explorer</a>
+        <span>&bull;</span>
+        <a href="https://docs.ethers.org/v6/" target="_blank" rel="noopener noreferrer">ethers.js v6 Docs</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Container for Notifications -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Ethers.js v6 via CDN with fallback -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.5/ethers.umd.min.js"></script>
+  <script>
+    if (typeof ethers === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"><\/script>');
+    }
+  </script>
+  <!-- Application Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
